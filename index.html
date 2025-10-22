@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Defense: Última Defensa</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Tower Defense: Última Defensa</h1>
+        </div>
+
+        <div class="game-content">
+            <div class="game-canvas-container">
+                <canvas id="gameCanvas" width="800" height="600"></canvas>
+            </div>
+
+            <div class="game-ui">
+                <div class="hud">
+                    <div class="hud-item">
+                        <span class="hud-label">Vidas:</span>
+                        <span id="lives" class="hud-value">20</span>
+                    </div>
+                    <div class="hud-item">
+                        <span class="hud-label">Dinero:</span>
+                        <span id="money" class="hud-value">$500</span>
+                    </div>
+                    <div class="hud-item">
+                        <span class="hud-label">Oleada:</span>
+                        <span id="wave" class="hud-value">1/10</span>
+                    </div>
+                    <div class="hud-item">
+                        <span class="hud-label">Enemigos:</span>
+                        <span id="enemies" class="hud-value">0</span>
+                    </div>
+                </div>
+
+                <div class="tower-panel">
+                    <h3>Torres</h3>
+                    <div class="tower-buttons">
+                        <button id="basicTower" class="tower-btn" data-tower="BASIC">
+                            <div class="tower-icon basic"></div>
+                            <div class="tower-info">
+                                <div class="tower-name">Básica</div>
+                                <div class="tower-cost">$100</div>
+                            </div>
+                        </button>
+                        <button id="sniperTower" class="tower-btn" data-tower="SNIPER">
+                            <div class="tower-icon sniper"></div>
+                            <div class="tower-info">
+                                <div class="tower-name">Sniper</div>
+                                <div class="tower-cost">$250</div>
+                            </div>
+                        </button>
+                        <button id="areaTower" class="tower-btn" data-tower="AREA">
+                            <div class="tower-icon area"></div>
+                            <div class="tower-info">
+                                <div class="tower-name">Área</div>
+                                <div class="tower-cost">$175</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="game-controls">
+                    <button id="startWave" class="control-btn primary">Iniciar Oleada</button>
+                    <button id="pauseGame" class="control-btn">Pausar</button>
+                    <button id="resetGame" class="control-btn">Reiniciar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="gameOverScreen" class="overlay hidden">
+            <div class="overlay-content">
+                <h2 id="gameOverTitle">Game Over</h2>
+                <p id="gameOverMessage">Los enemigos han llegado a tu base</p>
+                <button id="restartBtn" class="control-btn primary">Jugar de Nuevo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/ParticleSystem.js"></script>
+    <script src="js/map/pathData.js"></script>
+    <script src="js/map/Map.js"></script>
+    <script src="js/entities/Enemy.js"></script>
+    <script src="js/entities/Tower.js"></script>
+    <script src="js/entities/Projectile.js"></script>
+    <script src="js/managers/WaveManager.js"></script>
+    <script src="js/managers/EconomyManager.js"></script>
+    <script src="js/managers/UIManager.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

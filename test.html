@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Defense - Tests</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(44, 62, 80, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #3498db;
+            text-align: center;
+        }
+        .test-controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2ecc71;
+        }
+        #console {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 2px solid #34495e;
+        }
+        .info {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Tower Defense - Sistema de Tests</h1>
+        
+        <div class="info">
+            <p><strong>Información:</strong> Este sistema ejecuta tests unitarios para validar el funcionamiento de los componentes principales del juego.</p>
+            <p>Los tests verifican funciones de utilidad, entidades del juego, sistemas de gestión y integraciones básicas.</p>
+        </div>
+        
+        <div class="test-controls">
+            <button onclick="runTests()">🚀 Ejecutar Todos los Tests</button>
+            <button onclick="clearConsole()">🧹 Limpiar Consola</button>
+            <button onclick="window.location.href='index.html'">🎮 Volver al Juego</button>
+        </div>
+        
+        <div id="console">Haz clic en "Ejecutar Todos los Tests" para comenzar...</div>
+    </div>
+
+    <!-- Scripts del juego (necesarios para los tests) -->
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/ParticleSystem.js"></script>
+    <script src="js/map/pathData.js"></script>
+    <script src="js/map/Map.js"></script>
+    <script src="js/entities/Enemy.js"></script>
+    <script src="js/entities/Tower.js"></script>
+    <script src="js/entities/Projectile.js"></script>
+    <script src="js/managers/WaveManager.js"></script>
+    <script src="js/managers/EconomyManager.js"></script>
+    
+    <!-- Sistema de tests -->
+    <script src="js/tests/TestRunner.js"></script>
+    <script src="js/tests/GameTests.js"></script>
+    
+    <script>
+        // Redirigir console.log al div de consola
+        const consoleDiv = document.getElementById('console');
+        const originalLog = console.log;
+        
+        console.log = function(...args) {
+            // Llamar al console.log original
+            originalLog.apply(console, args);
+            
+            // Mostrar en el div
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            
+            consoleDiv.textContent += message + '\n';
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        };
+        
+        async function runTests() {
+            clearConsole();
+            console.log('🎯 Iniciando sistema de tests para Tower Defense...\n');
+            
+            try {
+                await testRunner.runAllTests();
+            } catch (error) {
+                console.log('❌ Error ejecutando tests:', error.message);
+            }
+        }
+        
+        function clearConsole() {
+            consoleDiv.textContent = '';
+        }
+        
+        // Mostrar información inicial
+        console.log('✅ Sistema de tests cargado correctamente.');
+        console.log(`📊 ${testRunner.tests.length} tests disponibles.`);
+        console.log('🚀 Haz clic en "Ejecutar Todos los Tests" para comenzar.\n');
+    </script>
+</body>
+</html>
